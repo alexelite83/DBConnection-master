@@ -71,7 +71,7 @@ public class Main extends AppCompatActivity {
 
                         }else {
 
-                        Toast t = Toast.makeText(context, "Estos son tua dias: \n" + print(dbHolydays.getFromHolydays(user)), Toast.LENGTH_SHORT);
+                        Toast t = Toast.makeText(context, "No te quedan más días de vacaciones \nEstos son tua dias: \n" + print(dbHolydays.getFromHolydays(user)), Toast.LENGTH_SHORT);
                         t.show();
 
                     }

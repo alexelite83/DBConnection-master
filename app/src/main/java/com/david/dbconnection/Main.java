@@ -17,8 +17,8 @@ import butterknife.OnClick;
 
 public class Main extends AppCompatActivity {
 
-    @Bind(R.id.button)
-    Button button;
+    @Bind(R.id.buttonDeleteAll)
+    Button buttonDeleteAll;
     final int MAX_DIAS_VACACIONES = 3;
 
     public Context context;
@@ -80,10 +80,16 @@ public class Main extends AppCompatActivity {
         });
     }
 
-    @OnClick (R.id.button)
+    @OnClick (R.id.buttonDeleteAll)
     public void deleteFromDatabase (View view) {
         DBHolydays dbHolydays = new DBHolydays(context);
         dbHolydays.deleteFromHolydays(user);
+    }
+
+    @OnClick (R.id.buttonDeleteDate)
+    public void deleteDayFromDatabase (View view) {
+        DBHolydays dbHolydays = new DBHolydays(context);
+        dbHolydays.deleteDayFromHolydays(user, "");
     }
 
     private String print(Vector<String> holidays) {

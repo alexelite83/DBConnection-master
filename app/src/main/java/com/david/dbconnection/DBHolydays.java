@@ -126,7 +126,11 @@ public class DBHolydays extends SQLiteOpenHelper {
         } finally {
             return deleted;
         }
+    }
 
+    public boolean deleteDayFromHolydays(String user, String date) {
+
+        return true;
     }
 
 }

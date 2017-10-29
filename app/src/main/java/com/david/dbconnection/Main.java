@@ -66,7 +66,7 @@ public class Main extends AppCompatActivity {
                             dbHolydays.insertIntoHolydays(selectedDate, user);
                             Vector<String> holydays = dbHolydays.getFromHolydays(user);
 
-                            Toast t = Toast.makeText(context, print(holydays)+ "\n\n\n Has gastado el último dia.", Toast.LENGTH_SHORT);
+                            Toast t = Toast.makeText(context, print(holydays)+ "\n\n\n Has gastado el último dia. Te jodes...", Toast.LENGTH_SHORT);
                             t.show();
 
                         }else {

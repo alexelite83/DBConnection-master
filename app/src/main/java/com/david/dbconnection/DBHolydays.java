@@ -129,8 +129,40 @@ public class DBHolydays extends SQLiteOpenHelper {
     }
 
     public boolean deleteDayFromHolydays(String user, String date) {
+        boolean deleted = false;
 
-        return true;
+        try {
+            // Se selecciona la BDD y se borran los datos del usuario pasado
+            SQLiteDatabase db = getWritableDatabase();
+            String inst = "DELETE FROM " + HOLYDAYS_TABLE_NAME + " WHERE User = '" + user + "' AND Date = '" + date + "'";
+
+            db.execSQL(inst);
+            deleted = true;
+        } catch (SQLiteException ex) {
+            ex.printStackTrace();
+        } finally {
+            return deleted;
+        }
+    }
+
+    public boolean isSelectedDate(String user, String date) {
+        boolean deleted = false;
+
+        try {
+            // Se selecciona la BDD y se borran los datos del usuario pasado
+            SQLiteDatabase db = getWritableDatabase();
+            String inst = "SELECT * FROM " + HOLYDAYS_TABLE_NAME + " WHERE User = '" + user + "' AND Date = '" + date + "'";
+
+            Cursor cursor = db.rawQuery(inst, null);
+            if(cursor.getCount() > 0) {
+                deleted = true;
+            }
+        } catch (SQLiteException ex) {
+            ex.printStackTrace();
+        } finally {
+            return deleted;
+        }
+
     }
 
 }

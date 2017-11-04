@@ -23,7 +23,7 @@ public class Main extends AppCompatActivity {
 
     public Context context;
     public DBHolydays dbHolydays;
-    private String user;
+    public String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +50,12 @@ public class Main extends AppCompatActivity {
             public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 String selectedDate = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
 
-                Integer diasDisfrutados = dbHolydays.getFromHolydays(user).size();
+                if (dbHolydays.isSelectedDate(user, selectedDate)) {
+                    deleteDayFromDatabase(user, selectedDate);
+                } else {
+                    Integer diasDisfrutados = dbHolydays.getFromHolydays(user).size();
 
-                if (diasDisfrutados != null){
+                    if (diasDisfrutados != null){
 
                         if (diasDisfrutados < (MAX_DIAS_VACACIONES -1)){
                             dbHolydays.insertIntoHolydays(selectedDate, user);
@@ -71,11 +74,13 @@ public class Main extends AppCompatActivity {
 
                         }else {
 
-                        Toast t = Toast.makeText(context, "No te quedan más días de vacaciones \nEstos son tua dias: \n" + print(dbHolydays.getFromHolydays(user)), Toast.LENGTH_SHORT);
-                        t.show();
+                            Toast t = Toast.makeText(context, "No te quedan más días de vacaciones \nEstos son tua dias: \n" + print(dbHolydays.getFromHolydays(user)), Toast.LENGTH_SHORT);
+                            t.show();
 
+                        }
                     }
                 }
+
             }
         });
     }
@@ -86,10 +91,9 @@ public class Main extends AppCompatActivity {
         dbHolydays.deleteFromHolydays(user);
     }
 
-    @OnClick (R.id.buttonDeleteDate)
-    public void deleteDayFromDatabase (View view) {
+    public void deleteDayFromDatabase (String user, String date) {
         DBHolydays dbHolydays = new DBHolydays(context);
-        dbHolydays.deleteDayFromHolydays(user, "");
+        dbHolydays.deleteDayFromHolydays(user, date);
     }
 
     private String print(Vector<String> holidays) {
